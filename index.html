@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IMDB Movies Info</title>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/filter-search.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+</head>
+
+<body>
+    <div id="container"></div>
+    <div class="ui-grid-a"></div>
+    <div class="ui-block-a">
+        <div data-role="page" class="page" id="title">
+            <div data-role="header" class="header">
+                <h1>Search</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <form id="searchFilterForm">
+                    <p class="attributesLabels">Genre:</p>
+                    <select class="selector" id="genreSelector">
+                        <option value="all" selected="selected">All</option>
+                    </select>
+
+                    <br>
+
+                    <p class="attributesLabels">Year:</p>
+                    <div data-role="rangeslider" id="slider-year" data-mini="true">
+                        <input type="range" id="minYear" min="1900" max="2018">
+                        <input type="range" id="maxYear" min="1900" max="2018">
+                    </div>
+
+                    <p class="attributesLabels">Runtime (minutes):</p>
+                    <div data-role="rangeslider" id="slider-runtime" data-mini="true">
+                        <input type="range" id="minRuntime" min="0" max="500">
+                        <input type="range" id="maxRuntime" min="0" max="500">
+                    </div>
+
+                    <p class="attributesLabels">Rating:</p>
+                    <div data-role="rangeslider" id="slider-rating" data-mini="true">
+                        <input type="range" id="minRate" min="0" max="10" step="0.1">
+                        <input type="range" id="maxRate" min="0" max="10" step="0.1">
+                    </div>
+
+                    <br>
+
+                    <p class="attributesLabels">Actors:</p>
+                    <select class="selector" id="actorSelector">
+                        <option value="all" selected="selected">All</option>
+                    </select>
+
+
+                    <p class="attributesLabels">Director:</p>
+                    <select class="selector" id="directorSelector">
+                        <option value="all" selected="selected">All</option>
+                    </select>
+
+                    <div style="display: inline-flex">
+                        <input data-role="button" id="btnReset" type="button" value="Clear" onclick="resetSearch()">
+                        <input data-role="button" id="btnSearch" type="button" value="Search" onclick="filterSearch()">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/sweetalert.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="js/lib/papaparse.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/filter-actors.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</body>
+
+</html>
