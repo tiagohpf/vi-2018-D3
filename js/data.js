@@ -4,7 +4,6 @@ $(window).load(function () {
     putDataOnSelect(directors, 'directorSelector');
     putDataOnSelect(actors, 'actorSelector');
     setMaxsAndMinsOnSliders();
-    updateOutput();
 });
 
 // All data
@@ -191,77 +190,126 @@ function setMaxsAndMinsOnSliders() {
     $("#maxRate").slider("refresh");
 }
 
-function updateOutput() {
-    $("#output").empty();
-    $("#output").append("<p>" + JSON.stringify(actualInfo) + "</p>");
-}
-
 /**
  * Reset results on search
  */
 function resetSearch() {
     document.getElementById('searchFilterForm').reset();
     setMaxsAndMinsOnSliders();
-    //filterSearch()
+    filterSearch()
 }
 
+/**
+ * Filter results after search
+ */
 function filterSearch() {
-    var newGenres = getNewGenre($("#genreSelector").val());
-    var newLatitudes = getNewLatitude($("#latitude").val());
-    var newLongitude = getNewLongitude($("#longitude").val());
-    var newWeight = getNewWeight($("#minWeight").val(), $("#maxWeight").val());
-    var newSpeed = getNewSpeed($("#minSpeed").val(), $("#maxSpeed").val());
+    var newGenre = getNewGenre($("#genreSelector").val());
+    var newYear = getNewYear($("#minYear").val(), $("#maxYear").val());
+    var newRuntime = getNewRuntime($("#minRuntime").val(), $("#maxRuntime").val());
+    var newRating = getNewRating($("#minRate").val(), $("#maxRate").val());
+    var newActor = getNewActor($("#actorSelector").val());
+    var newDirector = getNewDirector($("#directorSelector").val());
     actualInfo = [];
 
     for (var i in data) {
-        if (newGenres.indexOf(data[i]) != -1
-            && newLatitudes.indexOf(data[i]) != -1 && newLongitude.indexOf(data[i]) != -1
-            && newWeight.indexOf(data[i]) != -1 && newSpeed.indexOf(data[i]) != -1) {
+        if (newGenre.indexOf(data[i]) != -1
+            && newYear.indexOf(data[i]) != -1 && newRuntime.indexOf(data[i]) != -1
+            && newRating.indexOf(data[i]) != -1 && newActor.indexOf(data[i]) != -1
+            && newDirector.indexOf(data[i]) != -1) {
             actualInfo.push(data[i]);
         }
     }
+    console.log(actualInfo);
 }
 
 function getNewGenre(newGenre) {
     if (newGenre == 'all')
         return data;
-    else
-        return data.filter(function (row) {
-            return row.Genre == newGenre;
-        });
+    else {
+        var result = [];
+        for (var i in data) {
+            var splitter = data[i].Genre.split(",")
+            for (var genre in splitter) {
+                if (splitter[genre].trim() == newGenre) {
+                    result.push(data[i]);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 }
 
-function getNewLatitude(newLatitude) {
-    if (newLatitude.trim().length == 0)
-        return data;
-    else
-        return data.filter(function (row) {
-            return row.latitude == newLatitude;
-        });
-}
-
-function getNewLongitude(newLongitude) {
-    if (newLongitude.trim().length == 0)
-        return data;
-    else
-        return data.filter(function (row) {
-            return row.longitude == newLongitude;
-        });
-}
-
-function getNewWeight(newMinWeight, newMaxWeight) {
+/**
+ * Get data within year's range
+ * @param newMinYear
+ * @param newMaxYear
+ * @returns {Array.<*>}
+ */
+function getNewYear(newMinYear, newMaxYear) {
     return data.filter(function (row) {
-        return row.weight >= newMinWeight && row.weight <= newMaxWeight;
+        return row.Year >= newMinYear && row.Year <= newMaxYear;
     });
 }
 
-function getNewSpeed(newMinSpeed, newSpeed) {
+/**
+ * Get data within runtime's range
+ * @param newMinRuntime
+ * @param newMaxRuntime
+ * @returns {Array.<*>}
+ */
+function getNewRuntime(newMinRuntime, newMaxRuntime) {
     return data.filter(function (row) {
-        return row.speed >= newMinSpeed && row.speed <= newSpeed;
+        return row["Runtime (Minutes)"] >= newMinRuntime && row["Runtime (Minutes)"] <= newMaxRuntime;
     });
 }
 
-function returnToIndex() {
-    window.history.back();
+/**
+ * Get data within rating's range
+ * @param newMinRate
+ * @param newMaxRate
+ * @returns {Array.<*>}
+ */
+function getNewRating(newMinRate, newMaxRate) {
+    return data.filter(function (row) {
+        return row.Rating >= newMinRate && row.Rating <= newMaxRate;
+    });
 }
 
+/**
+ * Get data with certain actor
+ * @param newActor
+ * @returns {Array}
+ */
+function getNewActor(newActor) {
+    if (newActor == 'all')
+        return data;
+    else {
+        var result = [];
+        for (var i in data) {
+            var splitter = data[i].Actors.split(",")
+            for (var actor in splitter) {
+                if (splitter[actor].trim() == newActor) {
+                    result.push(data[i]);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+}
+
+/**
+ * Get data with certain director
+ * @param newDirector
+ * @returns {*}
+ */
+function getNewDirector(newDirector) {
+    if (newDirector == 'all')
+        return data;
+    else {
+        return data.filter(function (row) {
+            return row.Director == newDirector;
+        });
+    }
+}
