@@ -220,17 +220,21 @@ function filterSearch() {
         }
     }
     console.log(actualInfo);
+    countCombinations(actualInfo)
 }
 
 function getNewGenre(newGenre) {
-    if (newGenre == 'all')
+    if (newGenre == 'all') {
+        genres_comb = genres;
         return data;
+    }
     else {
         var result = [];
         for (var i in data) {
             var splitter = data[i].Genre.split(",")
-            for (var genre in splitter) {
-                if (splitter[genre].trim() == newGenre) {
+            for (var element in splitter) {
+                var genre = splitter[element].trim();
+                if (genre == newGenre) {
                     result.push(data[i]);
                     break;
                 }
