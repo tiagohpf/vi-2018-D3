@@ -6,10 +6,11 @@ var finishRuntime;
 var highYear;
 // Lowest value of year
 var lowYear;
-// Data of films filtered
-var films_data = [];
+// Data of movies filtered
+var movies_data = [];
 // Filtered information
 var filteredInfo = [];
+var bubbleChart;
 
 function setData(data) {
     filteredInfo = data.slice();
@@ -91,10 +92,46 @@ function calculateMeanRating(year, firstRange, lastRange) {
         for (var i in filterFilms)
             sum += filterFilms[i].Rating;
         var meanRating = sum / filterFilms.length;
-        films_data.push({
+        movies_data.push({
             'Year': parseInt(year),
             'Runtime': parseInt(lastRange),
-            'Rating': parseFloat(meanRating.toFixed(1))
+            'Rating': parseFloat(meanRating.toFixed(1)),
         });
     }
+}
+
+/**
+ * Draw Bubble Line chart
+ */
+function createChart() {
+    var svg = dimple.newSvg("#container", 700, 600);
+    bubbleChart = new dimple.chart(svg, movies_data);
+    bubbleChart.setBounds(70, 40, 650, 450)
+
+    var x = bubbleChart.addMeasureAxis("x", "Runtime");
+    var y = bubbleChart.addCategoryAxis("y", "Rating");
+    var z = bubbleChart.addAxis("z", "Rating");
+
+    // Max and min of axis x
+    x.overrideMin = startRuntime - 30;
+    x.overrideMax = finishRuntime + 30;
+
+    // Bubbles size
+    z.overrideMin = 0;
+    z.overrideMax = 20;
+
+    // Add the bubble series for shift values first so that it is
+    bubbleChart.addSeries("Year", dimple.plot.bubble);
+
+    // Add the line series on top of the bubbles
+    var s = bubbleChart.addSeries("Year", dimple.plot.line);
+
+    // Add line markers to the line because it looks nice
+    s.lineMarkers = true;
+
+    // Show a legend
+    bubbleChart.addLegend(180, 10, 360, 20, "right");
+
+    // Draw everything
+    bubbleChart.draw();
 }

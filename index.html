@@ -13,7 +13,17 @@
 </head>
 
 <body>
-    <div id="container"></div>
+    <div id="container" style="margin-left: 33%;margin-top: 1%">
+        <nav aria-label="breadcrumb" style="text-align: center">
+            <ol class="breadcrumb">
+                <li id="vennCrumb" class="breadcrumb-item active" aria-current="page">
+                    <a href="#" onclick="changeCrumb('vennCrumb')">Venn Diagram</a></li>
+                </li>
+                <li id="bubbleCrumb" class="breadcrumb-item active">
+                    <a href="#" onclick="changeCrumb('bubbleCrumb')">Time Bubble</a></li>
+            </ol>
+        </nav>
+    </div>
     <div class="ui-grid-a"></div>
     <div class="ui-block-a">
         <div data-role="page" class="page" id="title">
@@ -72,10 +82,12 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="js/lib/papaparse.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="js/lib/d3.js"></script>
+    <!--<script src="js/lib/dimple.js"></script>-->
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
     <script src="js/data.js"></script>
     <script src="js/venn_diagram.js"></script>
     <script src="js/time_bubble.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </body>
 

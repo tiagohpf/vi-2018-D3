@@ -47,6 +47,21 @@ $(document).ready(function() {
     });
 })
 
+
+function changeCrumb(active) {
+    if (active == 'vennCrumb') {
+        $("#vennCrumb").removeClass("active");
+        $("#bubbleCrumb").find('a').addClass("active");
+    }
+}
+
+function prepareCharts() {
+    setData(actualInfo);
+    countCombinations(actualInfo)
+    setStartRuntime($("#minRuntime").val());
+    setFinishRuntime($("#maxRuntime").val());
+    setYears($("#minYear").val(), $("#maxYear").val());
+}
 // Show actors
 $("#actorSelector").show();
 
@@ -192,6 +207,8 @@ function setMaxsAndMinsOnSliders() {
     $("#maxRate").val(maxRating);
     $("#minRate").slider("refresh");
     $("#maxRate").slider("refresh");
+    prepareCharts();
+    createChart();
 }
 
 /**
@@ -200,7 +217,7 @@ function setMaxsAndMinsOnSliders() {
 function resetSearch() {
     document.getElementById('searchFilterForm').reset();
     setMaxsAndMinsOnSliders();
-    filterSearch()
+    filterSearch();
 }
 
 /**
@@ -223,12 +240,10 @@ function filterSearch() {
             actualInfo.push(data[i]);
         }
     }
-    //console.log(actualInfo);
-    setData(actualInfo);
-    countCombinations(actualInfo)
-    setStartRuntime($("#minRuntime").val());
-    setFinishRuntime($("#maxRuntime").val());
-    setYears($("#minYear").val(), $("#maxYear").val());
+    movies_data = [];
+    prepareCharts();
+    bubbleChart.data = movies_data;
+    bubbleChart.draw();
 }
 
 function getNewGenre(newGenre) {
