@@ -14,5 +14,5 @@ function countCombinations(data) {
         else
             genres_comb[genres] = 1;
     }
-    console.log(genres_comb);
+    //console.log(genres_comb);
 }

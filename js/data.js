@@ -223,11 +223,12 @@ function filterSearch() {
             actualInfo.push(data[i]);
         }
     }
-    console.log(actualInfo);
+    //console.log(actualInfo);
     setData(actualInfo);
     countCombinations(actualInfo)
     setStartRuntime($("#minRuntime").val());
     setFinishRuntime($("#maxRuntime").val());
+    setYears($("#minYear").val(), $("#maxYear").val());
 }
 
 function getNewGenre(newGenre) {
