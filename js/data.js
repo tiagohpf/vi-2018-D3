@@ -1,11 +1,3 @@
-$(window).load(function () {
-    $("#title").css("visibility", "visible");
-    putDataOnSelect(genres, 'genreSelector');
-    putDataOnSelect(directors, 'directorSelector');
-    putDataOnSelect(actors, 'actorSelector');
-    setMaxsAndMinsOnSliders();
-});
-
 // All data
 var data = [];
 // Filtered data
@@ -33,20 +25,29 @@ var maxRating = Number.MIN_VALUE;
  * Load CSV file
  * @returns {*|{}}
  */
-function loadData() {
-    return $.get('data/IMDB-Movie-Data.csv', function (data) {
-        Papa.parse(data, {
-            header: true,
-            dynamicTyping: true,
-            complete: function (results) {
-                parseData(results.data)
-            }
-        });
+$(document).ready(function() {
+    $.ajax({
+        type: 'get',
+        url: 'data/IMDB-Movie-Data.csv',
+        dataType: 'text',
+        success: function(data) {
+            Papa.parse(data, {
+                header: true,
+                dynamicTyping: true,
+                complete: function (results) {
+                    parseData(results.data)
+                }
+            });
+            $("#title").css("visibility", "visible");
+            putDataOnSelect(genres, 'genreSelector');
+            putDataOnSelect(directors, 'directorSelector');
+            putDataOnSelect(actors, 'actorSelector');
+            setMaxsAndMinsOnSliders();
+        }
     });
-}
+})
 
-// Finish loading
-loadData().done();
+// Show actors
 $("#actorSelector").show();
 
 /**
@@ -56,16 +57,19 @@ $("#actorSelector").show();
 function parseData(result) {
     for (var i in result) {
         var row = result[i];
-        data.push(row);
-        addActors(row.Actors);
-        addDirector(row.Director);
-        addGenres(row.Genre);
-        setMinYear(row.Year);
-        setMaxYear(row.Year);
-        setMinRuntime(row["Runtime (Minutes)"]);
-        setMaxRuntime(row["Runtime (Minutes)"]);
-        setMinRating(row.Rating);
-        setMaxRating(row.Rating);
+        if (row.Rank != "" && row != undefined) {
+            //console.log(row);
+            data.push(row);
+            addActors(row.Actors);
+            addDirector(row.Director);
+            addGenres(row.Genre);
+            setMinYear(row.Year);
+            setMaxYear(row.Year);
+            setMinRuntime(row["Runtime (Minutes)"]);
+            setMaxRuntime(row["Runtime (Minutes)"]);
+            setMinRating(row.Rating);
+            setMaxRating(row.Rating);
+        }
     }
     actualInfo = data.slice();
 }
@@ -220,7 +224,10 @@ function filterSearch() {
         }
     }
     console.log(actualInfo);
+    setData(actualInfo);
     countCombinations(actualInfo)
+    setStartRuntime($("#minRuntime").val());
+    setFinishRuntime($("#maxRuntime").val());
 }
 
 function getNewGenre(newGenre) {
