@@ -1,6 +1,7 @@
 // Combinations of multiple genres
 var genres_comb = {};
 var genres_data = [];
+var created = false;
 
 /**
  * Count combinations of genres after filter search
@@ -49,6 +50,14 @@ function countCombinations(data) {
 }
 
 function createDiagram(sets) {
-    var diagram = venn.VennDiagram().width(500).height(400);
-    var chart = d3.select("#vennContainer").datum(sets).call(diagram);
+    if (!created) {
+        var diagram = venn.VennDiagram().width(1000).height(1000);
+        var chart = d3.select("#vennContainer").datum(sets).call(diagram);
+        created = true;
+    }
+    else{
+            d3.selectAll(sets).on("change", function() {
+            d3.select("#vennContainer").datum(getSetIntersections()).call(chart);
+        });
+    }
 }
