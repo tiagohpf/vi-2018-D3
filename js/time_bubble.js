@@ -88,7 +88,7 @@ function calculateMeanRating(year, firstRange, lastRange) {
     var filteredYear = filterYear(year);
     var filteredRuntime = filterRuntime(firstRange, lastRange);
     var filterFilms = intersect(filteredYear, filteredRuntime);
-    console.log("Filter: ", filteredRuntime);
+    //console.log("Filter: ", filteredRuntime);
     if (filterFilms.length > 0) {
         var sum = 0;
         for (var i in filterFilms)
