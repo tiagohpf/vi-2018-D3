@@ -6,7 +6,8 @@ var genres_comb = {};
  * @param data
  */
 function countCombinations(data) {
-    genres_comb = {};
+    var genres_comb = {};
+    var sets = [];
     for (var i in data) {
         var genres = data[i].Genre;
         if (genres_comb[genres] != undefined)
@@ -14,5 +15,20 @@ function countCombinations(data) {
         else
             genres_comb[genres] = 1;
     }
-    //console.log(genres_comb);
+    for (var x in genres_comb) {
+        sets.push({sets: x.split(","), size: genres_comb[x]});
+    }
+    console.log(sets);
+    createDiagram(sets);
+}
+
+function createDiagram(sets) {
+    var sets = [ {sets: ['A'], size: 12},
+        {sets: ['B'], size: 12},
+        {sets: ['A','B'], size: 2}];
+
+
+    console.log(sets)
+    var chart = venn.VennDiagram()
+    d3.select("#vennContainer").datum(sets).call(chart);
 }

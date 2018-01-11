@@ -24,58 +24,59 @@
             </ol>
         </nav>
         <div id="chartContainer"></div>
-    </div>
-    <div class="ui-grid-a"></div>
-    <div class="ui-block-a">
-        <div data-role="page" class="page" id="title">
-            <div data-role="header" class="header">
-                <h1>Search</h1>
-            </div>
-            <div data-role="main" class="ui-content">
-                <form id="searchFilterForm">
-                    <p class="attributesLabels">Genre:</p>
-                    <select class="selector" id="genreSelector">
-                        <option value="all" selected="selected">All</option>
-                    </select>
+        <div id="vennContainer"></div>
+        <div class="ui-grid-a"></div>
+        <div class="ui-block-a">
+            <div data-role="page" class="page" id="title">
+                <div data-role="header" class="header">
+                    <h1>Search</h1>
+                </div>
+                <div data-role="main" class="ui-content">
+                    <form id="searchFilterForm">
+                        <p class="attributesLabels">Genre:</p>
+                        <select class="selector" id="genreSelector">
+                            <option value="all" selected="selected">All</option>
+                        </select>
 
-                    <br>
+                        <br>
 
-                    <p class="attributesLabels">Year:</p>
-                    <div data-role="rangeslider" id="slider-year" data-mini="true">
-                        <input type="range" id="minYear" min="1900" max="2018">
-                        <input type="range" id="maxYear" min="1900" max="2018">
-                    </div>
+                        <p class="attributesLabels">Year:</p>
+                        <div data-role="rangeslider" id="slider-year" data-mini="true">
+                            <input type="range" id="minYear" min="1900" max="2018">
+                            <input type="range" id="maxYear" min="1900" max="2018">
+                        </div>
 
-                    <p class="attributesLabels">Runtime (minutes):</p>
-                    <div data-role="rangeslider" id="slider-runtime" data-mini="true">
-                        <input type="range" id="minRuntime" min="0" max="500">
-                        <input type="range" id="maxRuntime" min="0" max="500">
-                    </div>
+                        <p class="attributesLabels">Runtime (minutes):</p>
+                        <div data-role="rangeslider" id="slider-runtime" data-mini="true">
+                            <input type="range" id="minRuntime" min="0" max="500">
+                            <input type="range" id="maxRuntime" min="0" max="500">
+                        </div>
 
-                    <p class="attributesLabels">Rating:</p>
-                    <div data-role="rangeslider" id="slider-rating" data-mini="true">
-                        <input type="range" id="minRate" min="0" max="10" step="0.1">
-                        <input type="range" id="maxRate" min="0" max="10" step="0.1">
-                    </div>
+                        <p class="attributesLabels">Rating:</p>
+                        <div data-role="rangeslider" id="slider-rating" data-mini="true">
+                            <input type="range" id="minRate" min="0" max="10" step="0.1">
+                            <input type="range" id="maxRate" min="0" max="10" step="0.1">
+                        </div>
 
-                    <br>
+                        <br>
 
-                    <p class="attributesLabels">Actor:</p>
-                    <select class="selector" id="actorSelector">
-                        <option value="all" selected="selected">All</option>
-                    </select>
+                        <p class="attributesLabels">Actor:</p>
+                        <select class="selector" id="actorSelector">
+                            <option value="all" selected="selected">All</option>
+                        </select>
 
 
-                    <p class="attributesLabels">Director:</p>
-                    <select class="selector" id="directorSelector">
-                        <option value="all" selected="selected">All</option>
-                    </select>
+                        <p class="attributesLabels">Director:</p>
+                        <select class="selector" id="directorSelector">
+                            <option value="all" selected="selected">All</option>
+                        </select>
 
-                    <div style="display: inline-flex">
-                        <input data-role="button" id="btnReset" type="button" value="Clear" onclick="resetSearch()">
-                        <input data-role="button" id="btnSearch" type="button" value="Search" onclick="filterSearch()">
-                    </div>
-                </form>
+                        <div style="display: inline-flex">
+                            <input data-role="button" id="btnReset" type="button" value="Clear" onclick="resetSearch()">
+                            <input data-role="button" id="btnSearch" type="button" value="Search" onclick="filterSearch()">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -87,9 +88,9 @@
     <!--<script src="js/lib/dimple.js"></script>-->
     <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
     <script src="js/data.js"></script>
-    <script src="js/venn_diagram.js"></script>
     <script src="js/time_bubble.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/lib/venn.js"></script>
+    <script src="js/venn_diagram.js"></script>
 </body>
-
 </html>
