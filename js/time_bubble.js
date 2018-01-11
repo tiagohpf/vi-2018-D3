@@ -14,6 +14,7 @@ var bubbleChart;
 
 function setData(data) {
     filteredInfo = data.slice();
+    //console.log(filteredInfo);
 }
 
 /**
@@ -84,9 +85,10 @@ function intersect(a, b) {
  * @param lastRange
  */
 function calculateMeanRating(year, firstRange, lastRange) {
-    var filteredYear = getNewYear(year, year);
-    var filteredRuntime = getNewRuntime(firstRange, lastRange);
+    var filteredYear = filterYear(year);
+    var filteredRuntime = filterRuntime(firstRange, lastRange);
     var filterFilms = intersect(filteredYear, filteredRuntime);
+    console.log("Filter: ", filteredRuntime);
     if (filterFilms.length > 0) {
         var sum = 0;
         for (var i in filterFilms)
@@ -98,6 +100,29 @@ function calculateMeanRating(year, firstRange, lastRange) {
             'Rating': parseFloat(meanRating.toFixed(1)),
         });
     }
+}
+
+/**
+ * Filter data by year
+ * @param year
+ * @returns {Array.<*>}
+ */
+function filterYear(year) {
+    return filteredInfo.filter(function (row) {
+        return row.Year == year;
+    });
+}
+
+/**
+ * Filter data by runtime
+ * @param minTime
+ * @param maxTime
+ * @returns {Array.<*>}
+ */
+function filterRuntime(minTime, maxTime) {
+    return filteredInfo.filter(function (row) {
+        return row["Runtime (Minutes)"] >= minTime && row["Runtime (Minutes)"] <= maxTime;
+    });
 }
 
 /**
