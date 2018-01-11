@@ -20,6 +20,8 @@ var maxRuntime = Number.MIN_VALUE;
 var minRating = Number.MAX_VALUE;
 // Highest rating
 var maxRating = Number.MIN_VALUE;
+// Id of diagram in use
+var diagramInUse;
 
 /**
  * Load CSV file
@@ -49,18 +51,38 @@ $(document).ready(function() {
 
 function changeCrumb(active) {
     if (active == 'vennCrumb') {
+        $("#bubbleCrumb").removeClass("active");
+        $("#vennCrumb").find('a').addClass("active");
+        $("#chartContainer").empty();
+        prepareVennDiagram();
+        diagramInUse = 'venn';
+    }
+    else {
         $("#vennCrumb").removeClass("active");
         $("#bubbleCrumb").find('a').addClass("active");
+        $("#vennContainer").empty();
+        prepareBubbleChart();
+        diagramInUse = 'bubble';
     }
 }
 
-function prepareCharts() {
+function prepareBubbleChart() {
+    $("#vennContainer").empty();
+    movies_data = [];
     setData(actualInfo);
-    countCombinations(actualInfo)
     setStartRuntime($("#minRuntime").val());
     setFinishRuntime($("#maxRuntime").val());
     setYears($("#minYear").val(), $("#maxYear").val());
+    bubbleChart.svg.selectAll('*').remove();
+    $("#chartContainer").empty();
+    createBubbleChart();
 }
+
+function prepareVennDiagram() {
+    $("#chartContainer").empty();
+    countCombinations(actualInfo);
+}
+
 // Show actors
 $("#actorSelector").show();
 
@@ -206,8 +228,12 @@ function setMaxsAndMinsOnSliders() {
     $("#maxRate").val(maxRating);
     $("#minRate").slider("refresh");
     $("#maxRate").slider("refresh");
-    prepareCharts();
-    createChart();
+    setData(actualInfo);
+    setStartRuntime($("#minRuntime").val());
+    setFinishRuntime($("#maxRuntime").val());
+    setYears($("#minYear").val(), $("#maxYear").val());
+    createBubbleChart();
+    prepareVennDiagram();
 }
 
 /**
@@ -239,11 +265,10 @@ function filterSearch() {
             actualInfo.push(data[i]);
         }
     }
-    movies_data = [];
-    prepareCharts();
-    bubbleChart.svg.selectAll('*').remove();
-    $("#chartContainer").empty();
-    createChart();
+    if (diagramInUse == 'venn')
+        prepareVennDiagram();
+    else
+        prepareBubbleChart();
 }
 
 function getNewGenre(newGenre) {
