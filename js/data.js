@@ -47,7 +47,6 @@ $(document).ready(function() {
     });
 })
 
-
 function changeCrumb(active) {
     if (active == 'vennCrumb') {
         $("#vennCrumb").removeClass("active");
@@ -242,8 +241,9 @@ function filterSearch() {
     }
     movies_data = [];
     prepareCharts();
-    bubbleChart.data = movies_data;
-    bubbleChart.draw();
+    bubbleChart.svg.selectAll('*').remove();
+    $("#chartContainer").empty();
+    createChart();
 }
 
 function getNewGenre(newGenre) {

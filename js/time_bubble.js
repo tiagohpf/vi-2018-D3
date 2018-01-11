@@ -104,7 +104,7 @@ function calculateMeanRating(year, firstRange, lastRange) {
  * Draw Bubble Line chart
  */
 function createChart() {
-    var svg = dimple.newSvg("#container", 700, 600);
+    var svg = dimple.newSvg("#chartContainer", 700, 600);
     bubbleChart = new dimple.chart(svg, movies_data);
     bubbleChart.setBounds(70, 40, 650, 450)
 
