@@ -14,7 +14,6 @@ var bubbleChart;
 
 function setData(data) {
     filteredInfo = data.slice();
-    //console.log(filteredInfo);
 }
 
 /**
@@ -129,7 +128,7 @@ function filterRuntime(minTime, maxTime) {
  * Draw Bubble Line chart
  */
 function createBubbleChart() {
-    var svg = dimple.newSvg("#chartContainer", 700, 600);
+    var svg = dimple.newSvg("#bubbleContainer", 700, 600);
     bubbleChart = new dimple.chart(svg, movies_data);
     bubbleChart.setBounds(70, 40, 650, 450)
 

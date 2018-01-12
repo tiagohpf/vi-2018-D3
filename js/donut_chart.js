@@ -1,49 +1,40 @@
 // Combinations of multiple genres
-var genres_comb = {};
 var genres_data = [];
-var created = false;
-var donut_chart;
-var created = false;
+var filteredInfo = [];
+var genres_count = {};
+
+function setData(data) {
+    filteredInfo = data.slice();
+}
 
 /**
  * Count combinations of genres after filter search
  * @param data
  */
-
-function countCombinations(data) {
+function countCombinations() {
     var sets = [];
-    for (var i in data) {
-        var genres = data[i].Genre.split(",");
-
-        for (var j in genres){
-            genre = genres[j];
-            if (genres_comb[genre] != undefined)
-                genres_comb[genre] += 1;
+    for (var i in filteredInfo) {
+        var genres = filteredInfo[i].Genre.split(",");
+        for (var j in genres) {
+            var genre = genres[j].trim();
+            if (genres_count[genre] != undefined)
+                genres_count[genre] += 1;
             else
-                genres_comb[genre] = 1;
+                genres_count[genre] = 1;
         }
     }
-
-    console.log(genres_comb);
-    for (var x in genres_comb) {
-        sets.push({"Genre": x, size: genres_comb[x], label: x});
-    }
-
-    console.log(sets)
+    for (var i in genres_count)
+        sets.push({"Genre": i, Size: genres_count[i], label: i});
     createDonutChart(sets);
 }
 
 function createDonutChart(genres_comb) {
-    if (created) {
-        donutChart.svg.selectAll('*').remove();
-    }
-    var svg = dimple.newSvg("#vennContainer", 700, 600);
+    var svg = dimple.newSvg("#pieContainer", 800, 600);
     donutChart = new dimple.chart(svg, genres_comb);
-    donutChart.setBounds(20, 20, 460, 360)
-    donutChart.addMeasureAxis("p", "size");
+    donutChart.setBounds(55, 50, 460, 360);
+    donutChart.addMeasureAxis("p", "Size");
     var ring = donutChart.addSeries("Genre", dimple.plot.pie);
     ring.innerRadius = "50%";
-    donutChart.addLegend(500, 20, 90, 300, "left");
+    donutChart.addLegend(550, 70, 90, 300, "left");
     donutChart.draw();
-    created = true
 }

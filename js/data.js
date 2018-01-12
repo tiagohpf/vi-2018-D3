@@ -21,7 +21,7 @@ var minRating = Number.MAX_VALUE;
 // Highest rating
 var maxRating = Number.MIN_VALUE;
 // Id of diagram in use
-var diagramInUse = 'venn';
+var diagramInUse = 'pie';
 
 /**
  * Load CSV file
@@ -50,37 +50,40 @@ $(document).ready(function() {
 })
 
 function changeCrumb(active) {
-    if (active == 'vennCrumb') {
+    if (active == 'pieCrumb') {
         $("#bubbleCrumb").removeClass("active");
-        $("#vennCrumb").find('a').addClass("active");
-        $("#chartContainer").empty();
-        prepareVennDiagram();
-        diagramInUse = 'venn';
+        $("#pieCrumb").find('a').addClass("active");
+        $("#bubbleContainer").empty();
+        preparePieChart();
+        diagramInUse = 'pie';
     }
     else {
-        $("#vennCrumb").removeClass("active");
+        $("#pieCrumb").removeClass("active");
         $("#bubbleCrumb").find('a').addClass("active");
-        $("#vennContainer").empty();
+        $("#pieContainer").empty();
         prepareBubbleChart();
         diagramInUse = 'bubble';
     }
 }
 
 function prepareBubbleChart() {
-    $("#vennContainer").empty();
+    $("#pieContainer").empty();
     movies_data = [];
     setData(actualInfo);
     setStartRuntime($("#minRuntime").val());
     setFinishRuntime($("#maxRuntime").val());
     setYears($("#minYear").val(), $("#maxYear").val());
-    bubbleChart.svg.selectAll('*').remove();
-    $("#chartContainer").empty();
+    $("#bubbleContainer").empty();
     createBubbleChart();
 }
 
-function prepareVennDiagram() {
-    $("#chartContainer").empty();
-    countCombinations(actualInfo);
+function preparePieChart() {
+    $("#bubbleContainer").empty();
+    genres_data = [];
+    genres_count = {};
+    setData(actualInfo);
+    $("#pieContainer").empty();
+    countCombinations();
 }
 
 // Show actors
@@ -233,7 +236,7 @@ function setMaxsAndMinsOnSliders() {
     setFinishRuntime($("#maxRuntime").val());
     setYears($("#minYear").val(), $("#maxYear").val());
     createBubbleChart();
-    prepareVennDiagram();
+    preparePieChart();
 }
 
 /**
@@ -265,15 +268,15 @@ function filterSearch() {
             actualInfo.push(data[i]);
         }
     }
-    if (diagramInUse == 'venn')
-        prepareVennDiagram();
+    if (diagramInUse == 'pie')
+        preparePieChart();
     else
         prepareBubbleChart();
 }
 
 function getNewGenre(newGenre) {
     if (newGenre == 'all') {
-        genres_comb = genres;
+        genres_count = genres;
         return data;
     }
     else {
