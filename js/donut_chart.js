@@ -31,10 +31,10 @@ function countCombinations() {
 function createDonutChart(genres_comb) {
     var svg = dimple.newSvg("#pieContainer", 800, 600);
     donutChart = new dimple.chart(svg, genres_comb);
-    donutChart.setBounds(55, 50, 460, 360);
+    donutChart.setBounds(175, 50, 460, 360);
     donutChart.addMeasureAxis("p", "Size");
     var ring = donutChart.addSeries("Genre", dimple.plot.pie);
     ring.innerRadius = "50%";
-    donutChart.addLegend(550, 70, 90, 300, "left");
+    donutChart.addLegend(675, 100, 90, 300, "left");
     donutChart.draw();
 }
