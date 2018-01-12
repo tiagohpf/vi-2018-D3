@@ -21,7 +21,7 @@ var minRating = Number.MAX_VALUE;
 // Highest rating
 var maxRating = Number.MIN_VALUE;
 // Id of diagram in use
-var diagramInUse;
+var diagramInUse = 'venn';
 
 /**
  * Load CSV file

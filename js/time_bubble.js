@@ -97,7 +97,7 @@ function calculateMeanRating(year, firstRange, lastRange) {
         movies_data.push({
             'Year': parseInt(year),
             'Runtime': parseInt(lastRange),
-            'Rating': parseFloat(meanRating.toFixed(1)),
+            'Rating': parseFloat(meanRating.toFixed(2)),
         });
     }
 }
