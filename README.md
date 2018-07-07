@@ -1,4 +1,4 @@
-# vi-2018-D3
+# IMDB Movies
 
 Application of information visualization about movies through [D3](https://d3js.org/). Pie Chart and Time Bubble Chart were implemented, both with filtered search. The Pie Chart shows the movies, grouped by **Genre** while Time Bubble Chart shows an association between **Year** and **Average Rating**.
 
